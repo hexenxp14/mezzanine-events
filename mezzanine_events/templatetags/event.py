@@ -31,7 +31,7 @@ def google_nav_url(event):
 	if not isinstance(event, Event):
 		return ''
 	location = quote(event.mappable_location)
-	return "https://{}/maps?daddr={}".format(settings.MZEVENTS_GOOGLE_MAPS_DOMAIN, location)
+	return "https://{0}/maps?daddr={1}".format(settings.MZEVENTS_GOOGLE_MAPS_DOMAIN, location)
 
 @register.tag
 def google_static_map(parser, token):
@@ -52,7 +52,7 @@ class GoogleStaticMapNode (template.Node):
 		width = self.width
 		height = self.height
 		zoom = self.zoom
-		marker = quote('{:.6},{:.6}'.format(event.lat, event.lon))
+		marker = quote('{0:.6},{1:.6}'.format(event.lat, event.lon))
 		if settings.MZEVENTS_HIDPI_STATIC_MAPS:
 			scale = 2
 		else:
@@ -64,7 +64,7 @@ def icalendar_url(obj, proto_param=None):
 	if proto_param is None:
 		proto = 'http://'
 	else:
-		proto = '{}://'.format(proto_param)
+		proto = '{0}://'.format(proto_param)
 	if isinstance(obj, Event):
 		endfile = 'event.ics'
 	elif isinstance(obj, EventContainer):
