@@ -1,34 +1,34 @@
 {% extends "pages/page.html" %}
 
-{% load mezzanine_tags event %}
+{% load mezzanine_tags event i18n %}
 
 {% block main %}{{ block.super }}
 
 <div style="float:right;">
 	<a href='{{page.event|google_calendar_url}}' target="_blank" class="btn btn-small">
-		Add to Google Calendar
+		{% trans "Add to" %} Google Calendar
 	</a>
 	<a href='{{page.event|icalendar_url}}' class="btn btn-small">
-		Add to Outlook/iCal
+		{% trans "Add to" %} Outlook/iCal
 	</a>
 </div>
 
 <p class='lead'>
-	{{page.event.date}} from {{page.event.start_time}} to {{page.event.end_time}}
+        {% blocktrans with date=page.event.date|date start=page.event.start_time end=page.event.end_time %}{{date}} from {{start}} to {{end}}{% endblocktrans %}
 </p>
 
 <div class="row-fluid">
 	<div class="span4">
-		<b>Address</b>
+		<b>{% trans "Address" %}</b>
 		<address>
 			{{page.event.location|linebreaksbr}}<br />
 			<a href='{{page.event|google_nav_url}}' class="btn btn-small">
-				Get Directions
+				{% trans "Get Directions" %}
 			</a>
 		</address>
 	</div>
 	<div class="span4">
-		<b>Speakers</b>
+		<b>{% trans "Speakers" %}</b>
 		<address>
 			<ul>
 				{% for speaker in page.event.speakers_list %}
@@ -38,7 +38,7 @@
 		</address>
 	</div>
 	<div class="span4">
-		<b>RSVP</b>
+		<b>{% trans "RSVP" %}</b>
 		<p>
 			{{page.event.rsvp|linebreaksbr|link_emails}}
 		</p>
